@@ -83,15 +83,15 @@ def find_non_matching_indices(array_person, array_metric):
     metric_matched = True
 
     for person_item in array_person:
-        person_string = person_item[0]
+        person_timestamp = float(person_item[0])
         person_value = round(float(person_item[1]), 1)
         found_match = False
         
         for metric_item in array_metric:
-            metric_string = metric_item[0]
+            metric_timestamp = float(metric_item[0])
             metric_value = round(metric_item[1], 1)
             
-            if person_string == metric_string and person_value == metric_value:
+            if abs(person_timestamp - metric_timestamp) <= 1 and abs(metric_value - person_value) == 0.0:
                 found_match = True
                 break
         
@@ -100,15 +100,15 @@ def find_non_matching_indices(array_person, array_metric):
             print(f"No matching value found for person item '{person_item}'.")
 
     for metric_item in array_metric:
-        metric_string = metric_item[0]
+        metric_timestamp = float(metric_item[0])
         metric_value = round(metric_item[1], 1)
         found_match = False
         
         for person_item in array_person:
-            person_string = person_item[0]
+            person_timestamp = float(person_item[0])
             person_value = round(float(person_item[1]), 1)
             
-            if metric_string == person_string and metric_value == person_value:
+            if abs(metric_timestamp - person_timestamp) <= 1 and abs(metric_value - person_value) == 0.0:
                 found_match = True
                 break
         
@@ -127,13 +127,13 @@ def main():
     root_dir_person = "data_person"
     root_dir_metric = "data_metric"
     root_dir_save = "data_text"
-
+    root_dir_test = "data_test"
     # Create output directory if it doesn't exist
     if not os.path.exists(root_dir_save):
         os.makedirs(root_dir_save)
 
     # Redirect stdout to a file
-    output_file = os.path.join(root_dir_save, f"{filename_metric}.txt")
+    output_file = os.path.join(root_dir_test, f"{filename_metric}.txt")
     sys.stdout = open(output_file, 'w')
 
     try:
