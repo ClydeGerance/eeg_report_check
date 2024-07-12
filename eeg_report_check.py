@@ -133,7 +133,7 @@ def main():
         os.makedirs(root_dir_save)
 
     # Redirect stdout to a file
-    output_file = os.path.join(root_dir_test, f"{filename_metric}.txt")
+    output_file = os.path.join(root_dir_save, f"{filename_metric}.txt")
     sys.stdout = open(output_file, 'w')
 
     try:
